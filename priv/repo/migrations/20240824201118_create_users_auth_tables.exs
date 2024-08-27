@@ -6,6 +6,7 @@ defmodule TokiPonaFlashcards.Repo.Migrations.CreateUsersAuthTables do
       add :email, :string, null: false, collate: :nocase
       add :hashed_password, :string, null: false
       add :confirmed_at, :utc_datetime
+      add :study_session, :integer, null: false
 
       timestamps(type: :utc_datetime)
     end

@@ -80,6 +80,11 @@ defmodule TokiPonaFlashcards.Accounts do
     |> Repo.insert()
   end
 
+  def increment_study_session(%User{} = user) do
+    User.increment_study_session(user)
+    |> Repo.update()
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 

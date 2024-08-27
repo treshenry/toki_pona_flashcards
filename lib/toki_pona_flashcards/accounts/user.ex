@@ -8,6 +8,7 @@ defmodule TokiPonaFlashcards.Accounts.User do
     field :hashed_password, :string, redact: true
     field :current_password, :string, virtual: true, redact: true
     field :confirmed_at, :utc_datetime
+    field :study_session, :integer, default: 0
 
     timestamps(type: :utc_datetime)
   end
@@ -37,7 +38,7 @@ defmodule TokiPonaFlashcards.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :study_session])
     |> validate_email(opts)
     |> validate_password(opts)
   end
@@ -130,13 +131,26 @@ defmodule TokiPonaFlashcards.Accounts.User do
     change(user, confirmed_at: now)
   end
 
+  def increment_study_session(user) do
+    study_session =
+      case user.study_session do
+        9 -> 0
+        other -> other + 1
+      end
+
+    change(user, %{study_session: study_session})
+  end
+
   @doc """
   Verifies the password.
 
   If there is no user or the user doesn't have a password, we call
   `Bcrypt.no_user_verify/0` to avoid timing attacks.
   """
-  def valid_password?(%TokiPonaFlashcards.Accounts.User{hashed_password: hashed_password}, password)
+  def valid_password?(
+        %TokiPonaFlashcards.Accounts.User{hashed_password: hashed_password},
+        password
+      )
       when is_binary(hashed_password) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, hashed_password)
   end
