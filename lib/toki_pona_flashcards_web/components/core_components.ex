@@ -609,6 +609,19 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
     """
   end
 
+  slot :inner_block, required: true
+
+  def card(assigns) do
+    ~H"""
+    <div class={[
+      "my-5 w-full h-60 bg-violet-900 border-2 border-violet-600 shadow-violet-600/60",
+      "shadow-lg rounded-xl grid place-items-center text-[5rem] text-violet-50"
+    ]}>
+      <%= render_slot(@inner_block) %>
+    </div>
+    """
+  end
+
   ## JS Commands
 
   def show(js \\ %JS{}, selector) do

@@ -3,3 +3,11 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+@layer base {
+  @font-face {
+    font-family: "sitelen seli kiwen asuki";
+    src: url("/fonts/sitelenselikiwenasuki.ttf");
+    font-weight: normal;
+    font-style: normal;
+  }
+}
