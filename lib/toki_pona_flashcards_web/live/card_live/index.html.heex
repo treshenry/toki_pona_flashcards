@@ -1,9 +1,7 @@
 <.header class="mb-9">
-  Last session: <%= Accounts.get_user!(@user_id).study_session %>
+  The last study session was #<%= Accounts.get_user!(@user_id).study_session %>
   <:actions>
-    <.link patch={~p"/study"}>
-      <.button>Study Now</.button>
-    </.link>
+    <.button phx-click="study_now">Study Now</.button>
   </:actions>
 </.header>
 

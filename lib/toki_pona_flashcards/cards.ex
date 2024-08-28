@@ -52,7 +52,7 @@ defmodule TokiPonaFlashcards.Cards do
     sessions_list = Boxes.get_boxes() |> Enum.at(card.box) |> Map.get(:review_in_session)
 
     case sessions_list do
-      sl when length(sl) > 4 -> "Any session"
+      sl when length(sl) > 4 -> "All sessions"
       sl -> Enum.join(sl, ", ")
     end
   end

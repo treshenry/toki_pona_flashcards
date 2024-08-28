@@ -56,4 +56,9 @@ defmodule TokiPonaFlashcardsWeb.CardLive.Index do
 
     {:noreply, stream_delete(socket, :cards, card)}
   end
+
+  def handle_event("study_now", _, socket) do
+    Accounts.increment_study_session(socket.assigns.current_user)
+    {:noreply, push_navigate(socket, to: ~p"/study")}
+  end
 end
