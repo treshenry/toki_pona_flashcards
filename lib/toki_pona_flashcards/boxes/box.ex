@@ -1,21 +1,25 @@
 defmodule TokiPonaFlashcards.Boxes.Box do
-  @enforce_keys [:name, :review_in]
-  defstruct [:name, :review_in]
+  @enforce_keys [:box_id, :name, :review_in_session]
+  defstruct [:box_id, :name, :review_in_session]
 
   def get_boxes() do
     [
-      %__MODULE__{name: "Always Review", review_in: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]},
-      %__MODULE__{name: "Only Session 1", review_in: [0, 2, 5, 9]},
-      %__MODULE__{name: "Only Session 2", review_in: [1, 3, 6, 0]},
-      %__MODULE__{name: "Only Session 2", review_in: [2, 4, 7, 1]},
-      %__MODULE__{name: "Only Session 2", review_in: [3, 5, 8, 2]},
-      %__MODULE__{name: "Only Session 2", review_in: [4, 6, 9, 3]},
-      %__MODULE__{name: "Only Session 2", review_in: [5, 7, 0, 4]},
-      %__MODULE__{name: "Only Session 2", review_in: [6, 8, 1, 5]},
-      %__MODULE__{name: "Only Session 2", review_in: [7, 9, 2, 6]},
-      %__MODULE__{name: "Only Session 2", review_in: [8, 0, 3, 7]},
-      %__MODULE__{name: "Only Session 2", review_in: [9, 1, 4, 8]},
-      %__MODULE__{name: "Retired", review_in: []}
+      %__MODULE__{
+        box_id: 0,
+        name: "Always Review",
+        review_in_session: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      },
+      %__MODULE__{box_id: 1, name: "Only Session 1", review_in_session: [0, 2, 5, 9]},
+      %__MODULE__{box_id: 2, name: "Only Session 2", review_in_session: [1, 3, 6, 0]},
+      %__MODULE__{box_id: 3, name: "Only Session 3", review_in_session: [2, 4, 7, 1]},
+      %__MODULE__{box_id: 4, name: "Only Session 4", review_in_session: [3, 5, 8, 2]},
+      %__MODULE__{box_id: 5, name: "Only Session 5", review_in_session: [4, 6, 9, 3]},
+      %__MODULE__{box_id: 6, name: "Only Session 6", review_in_session: [5, 7, 0, 4]},
+      %__MODULE__{box_id: 7, name: "Only Session 7", review_in_session: [6, 8, 1, 5]},
+      %__MODULE__{box_id: 8, name: "Only Session 8", review_in_session: [7, 9, 2, 6]},
+      %__MODULE__{box_id: 9, name: "Only Session 9", review_in_session: [8, 0, 3, 7]},
+      %__MODULE__{box_id: 10, name: "Only Session 10", review_in_session: [9, 1, 4, 8]},
+      %__MODULE__{box_id: 11, name: "Retired", review_in_session: []}
     ]
   end
 end

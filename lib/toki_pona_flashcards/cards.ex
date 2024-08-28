@@ -4,9 +4,11 @@ defmodule TokiPonaFlashcards.Cards do
   """
 
   import Ecto.Query, warn: false
-  alias TokiPonaFlashcards.Repo
 
+  alias TokiPonaFlashcards.Repo
   alias TokiPonaFlashcards.Cards.Card
+  alias TokiPonaFlashcards.Accounts.User
+  alias TokiPonaFlashcards.Box
 
   @doc """
   Returns the list of cards.
@@ -36,6 +38,15 @@ defmodule TokiPonaFlashcards.Cards do
 
   """
   def get_card!(id), do: Repo.get!(Card, id)
+
+  def get_cards_for_session(%User{} = user, study_session) when is_integer(study_session) do
+    Box.get_boxes_for_study_session(study_session)
+    |> Enum.map(fn box ->
+      Card.get_cards_in_box_query(user, box.box_id) |> Repo.all()
+    end)
+    |> List.flatten()
+    |> Enum.shuffle()
+  end
 
   @doc """
   Creates a card.

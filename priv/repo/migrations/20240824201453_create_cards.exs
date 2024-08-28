@@ -8,6 +8,7 @@ defmodule TokiPonaFlashcards.Repo.Migrations.CreateCards do
       add :back, :string
       add :front_sitelen, :boolean, default: false, null: false
       add :back_sitelen, :boolean, default: false, null: false
+      add :box, :integer, default: 0, null: false
 
       timestamps(type: :utc_datetime)
     end
