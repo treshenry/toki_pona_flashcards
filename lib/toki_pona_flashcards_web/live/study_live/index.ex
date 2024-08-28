@@ -6,8 +6,10 @@ defmodule TokiPonaFlashcardsWeb.StudyLive.Index do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="text-2xl">This is study session #<%= @current_session %></div>
-    <div class="text-xl">This is card <%= @current_card_index + 1 %> of <%= length(@cards) %></div>
+    <div class="text-2xl text-violet-50">This is study session #<%= @current_session %></div>
+    <div class="text-xl text-violet-50">
+      This is card <%= @current_card_index + 1 %> of <%= length(@cards) %>
+    </div>
     """
   end
 

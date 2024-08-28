@@ -21,8 +21,12 @@
 >
   <:col :let={{_id, card}} label="Front"><%= card.front %></:col>
   <:col :let={{_id, card}} label="Back"><%= card.back %></:col>
-  <:col :let={{_id, card}} label="Front sitelen"><%= card.front_sitelen |> bool_label() %></:col>
-  <:col :let={{_id, card}} label="Back sitelen"><%= card.back_sitelen |> bool_label() %></:col>
+  <:col :let={{_id, card}} label="Front sitelen">
+    <.bool_label checked={card.front_sitelen} />
+  </:col>
+  <:col :let={{_id, card}} label="Back sitelen">
+    <.bool_label checked={card.back_sitelen} />
+  </:col>
   <:col :let={{_id, card}} label="Review in sessions">
     <%= Cards.get_review_sessions_label(card) %>
   </:col>
