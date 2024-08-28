@@ -8,7 +8,7 @@ defmodule TokiPonaFlashcards.Accounts.User do
     field :hashed_password, :string, redact: true
     field :current_password, :string, virtual: true, redact: true
     field :confirmed_at, :utc_datetime
-    field :study_session, :integer, default: 0
+    field :study_session, :integer, default: -1
 
     timestamps(type: :utc_datetime)
   end

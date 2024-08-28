@@ -75,6 +75,8 @@ defmodule TokiPonaFlashcardsWeb.Router do
 
       live "/cards/:id", CardLive.Show, :show
       live "/cards/:id/show/edit", CardLive.Show, :edit
+
+      live "/study", StudyLive.Index, :index
     end
   end
 

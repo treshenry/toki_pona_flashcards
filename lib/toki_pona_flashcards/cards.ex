@@ -8,7 +8,7 @@ defmodule TokiPonaFlashcards.Cards do
   alias TokiPonaFlashcards.Repo
   alias TokiPonaFlashcards.Cards.Card
   alias TokiPonaFlashcards.Accounts.User
-  alias TokiPonaFlashcards.Box
+  alias TokiPonaFlashcards.Boxes
 
   @doc """
   Returns the list of cards.
@@ -40,12 +40,21 @@ defmodule TokiPonaFlashcards.Cards do
   def get_card!(id), do: Repo.get!(Card, id)
 
   def get_cards_for_session(%User{} = user, study_session) when is_integer(study_session) do
-    Box.get_boxes_for_study_session(study_session)
+    Boxes.get_boxes_for_study_session(study_session)
     |> Enum.map(fn box ->
       Card.get_cards_in_box_query(user, box.box_id) |> Repo.all()
     end)
     |> List.flatten()
     |> Enum.shuffle()
+  end
+
+  def get_review_sessions_label(%Card{} = card) do
+    sessions_list = Boxes.get_boxes() |> Enum.at(card.box) |> Map.get(:review_in_session)
+
+    case sessions_list do
+      sl when length(sl) > 4 -> "Any session"
+      sl -> Enum.join(sl, ", ")
+    end
   end
 
   @doc """

@@ -36,6 +36,14 @@ defmodule TokiPonaFlashcardsWeb.CardLive.Index do
     |> assign(:card, nil)
   end
 
+  defp bool_label(val) do
+    if val do
+      "✅"
+    else
+      "❌"
+    end
+  end
+
   @impl true
   def handle_info({TokiPonaFlashcardsWeb.CardLive.FormComponent, {:saved, card}}, socket) do
     {:noreply, stream_insert(socket, :cards, card)}

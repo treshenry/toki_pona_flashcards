@@ -1,5 +1,14 @@
+<.header class="mb-9">
+  Last session: <%= Accounts.get_user!(@user_id).study_session %>
+  <:actions>
+    <.link patch={~p"/study"}>
+      <.button>Study Now</.button>
+    </.link>
+  </:actions>
+</.header>
+
 <.header>
-  Manage cards for <%= Accounts.get_user!(@user_id).email %>
+  Manage cards
   <:actions>
     <.link patch={~p"/cards/new"}>
       <.button>New Card</.button>
@@ -14,8 +23,12 @@
 >
   <:col :let={{_id, card}} label="Front"><%= card.front %></:col>
   <:col :let={{_id, card}} label="Back"><%= card.back %></:col>
-  <:col :let={{_id, card}} label="Front sitelen"><%= card.front_sitelen %></:col>
-  <:col :let={{_id, card}} label="Back sitelen"><%= card.back_sitelen %></:col>
+  <:col :let={{_id, card}} label="Front sitelen"><%= card.front_sitelen |> bool_label() %></:col>
+  <:col :let={{_id, card}} label="Back sitelen"><%= card.back_sitelen |> bool_label() %></:col>
+  <:col :let={{_id, card}} label="Review in sessions">
+    <%= Cards.get_review_sessions_label(card) %>
+  </:col>
+
   <:action :let={{_id, card}}>
     <div class="sr-only">
       <.link navigate={~p"/cards/#{card}"}>Show</.link>
