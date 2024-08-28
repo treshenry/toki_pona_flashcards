@@ -3,6 +3,8 @@ defmodule TokiPonaFlashcards.Boxes do
 
   def get_boxes(), do: Box.get_boxes()
 
+  def get_box(id), do: Box.get_boxes() |> Enum.at(id)
+
   def get_boxes_for_study_session(study_session) when is_integer(study_session) do
     Box.get_boxes()
     |> Enum.filter(fn box ->

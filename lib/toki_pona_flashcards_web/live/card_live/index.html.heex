@@ -1,7 +1,7 @@
 <.header class="mb-9">
   The last study session was #<%= Accounts.get_user!(@user_id).study_session %>
   <:actions>
-    <.button phx-click="study_now">Study Now</.button>
+    <.button class="bg-violet-900 hover:bg-violet-800" phx-click="study_now">Study Now</.button>
   </:actions>
 </.header>
 
@@ -9,7 +9,7 @@
   Manage cards
   <:actions>
     <.link patch={~p"/cards/new"}>
-      <.button>New Card</.button>
+      <.button class="bg-violet-900 hover:bg-violet-800">New Card</.button>
     </.link>
   </:actions>
 </.header>

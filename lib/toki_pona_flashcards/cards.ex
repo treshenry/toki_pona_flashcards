@@ -49,12 +49,29 @@ defmodule TokiPonaFlashcards.Cards do
   end
 
   def get_review_sessions_label(%Card{} = card) do
-    sessions_list = Boxes.get_boxes() |> Enum.at(card.box) |> Map.get(:review_in_session)
+    sessions_list = Boxes.get_box(card.box).review_in_session
 
     case sessions_list do
+      [] -> "Retired"
       sl when length(sl) > 4 -> "All sessions"
       sl -> Enum.join(sl, ", ")
     end
+  end
+
+  def good(%Card{box: 0} = card, study_session) when is_integer(study_session) do
+    {:ok, _} = update_card(card, %{box: study_session + 1})
+  end
+
+  def good(%Card{} = card, study_session) when is_integer(study_session) do
+    retire_if_session = Boxes.get_box(card.box).review_in_session |> Enum.reverse() |> hd()
+
+    if study_session == retire_if_session do
+      {:ok, _} = update_card(card, %{box: 11})
+    end
+  end
+
+  def bad(%Card{} = card) do
+    {:ok, _} = update_card(card, %{box: 0})
   end
 
   @doc """

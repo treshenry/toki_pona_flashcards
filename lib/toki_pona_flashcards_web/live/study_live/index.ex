@@ -6,32 +6,41 @@ defmodule TokiPonaFlashcardsWeb.StudyLive.Index do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="text-2xl text-violet-50">This is study session #<%= @current_session %></div>
-    <div class="text-xl text-violet-50">
-      This is card <%= @current_card_index + 1 %> of <%= length(@cards) %>
-    </div>
-    <.card>
-      <%= if @side == :front do %>
-        <div class={if @current_card.front_sitelen, do: "font-sitelen"}>
-          <%= @current_card.front %>
-        </div>
-      <% else %>
-        <%= @current_card.back %>
-      <% end %>
-    </.card>
+    <div class="text-2xl text-violet-50 mb-4">This is study session #<%= @current_session %></div>
+    <%= if length(@cards) > 0 do %>
+      <div class="text-xl text-violet-50">
+        This is card <%= @current_card_index + 1 %> of <%= length(@cards) %>
+      </div>
+      <.card side={@side}>
+        <%= if @side == :front do %>
+          <div class={if @current_card.front_sitelen, do: "font-sitelen"}>
+            <%= @current_card.front %>
+          </div>
+        <% else %>
+          <%= @current_card.back %>
+        <% end %>
+      </.card>
 
-    <div class="flex justify-center space-x-3">
-      <%= if @side == :front do %>
-        <.button phx-click="flip_card"><.icon name="hero-arrows-right-left" /></.button>
-      <% else %>
-        <.button phx-click="good" class="bg-teal-900 hover:bg-teal-800">
-          <.icon name="hero-check-badge" />
-        </.button>
-        <.button phx-click="bad" class="bg-red-800 hover:bg-red-900">
-          <.icon name="hero-x-circle" />
-        </.button>
-      <% end %>
-    </div>
+      <div class="flex justify-center space-x-3">
+        <%= if @side == :front do %>
+          <.button phx-click="flip_card" class="bg-violet-900 hover:bg-violet-800">
+            <.icon name="hero-arrows-right-left" />
+          </.button>
+        <% else %>
+          <.button phx-click="good" class="bg-teal-900 hover:bg-teal-800">
+            <.icon name="hero-check-badge" />
+          </.button>
+          <.button phx-click="bad" class="bg-red-900 hover:bg-red-800">
+            <.icon name="hero-x-circle" />
+          </.button>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-xl text-white mb-4">There are no cards for this session</div>
+      <.link class="text-violet-200" navigate={~p"/cards"}>
+        <.icon name="hero-arrow-left" /> Back to cards
+      </.link>
+    <% end %>
     """
   end
 
@@ -55,10 +64,28 @@ defmodule TokiPonaFlashcardsWeb.StudyLive.Index do
   end
 
   def handle_event("good", _, socket) do
-    {:noreply, socket}
+    Cards.good(socket.assigns.current_card, socket.assigns.current_session)
+
+    {:noreply, socket |> next_card_or_done()}
   end
 
   def handle_event("bad", _, socket) do
-    {:noreply, socket}
+    Cards.bad(socket.assigns.current_card)
+
+    {:noreply, socket |> next_card_or_done()}
+  end
+
+  defp next_card_or_done(socket) do
+    card_index = socket.assigns.current_card_index + 1
+
+    if card_index >= length(socket.assigns.cards) do
+      socket
+      |> push_navigate(to: ~p"/cards")
+    else
+      socket
+      |> assign(:current_card_index, card_index)
+      |> assign(:current_card, socket.assigns.cards |> Enum.at(card_index))
+      |> assign(:side, :front)
+    end
   end
 end

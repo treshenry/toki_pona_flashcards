@@ -19,8 +19,8 @@ defmodule TokiPonaFlashcards.Cards.Card do
   @doc false
   def changeset(card, attrs) do
     card
-    |> cast(attrs, [:user_id, :front, :back, :front_sitelen, :back_sitelen])
-    |> validate_required([:user_id, :front, :back, :front_sitelen, :back_sitelen])
+    |> cast(attrs, [:user_id, :front, :back, :front_sitelen, :back_sitelen, :box])
+    |> validate_required([:user_id, :front, :back, :front_sitelen, :back_sitelen, :box])
   end
 
   def get_cards_in_box_query(user, box) do

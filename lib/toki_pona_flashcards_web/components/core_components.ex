@@ -231,7 +231,7 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-violet-800 hover:bg-violet-700 py-2 px-3",
+        "phx-submit-loading:opacity-75 rounded-lg py-2 px-3",
         "text-sm font-semibold leading-6 text-violet-100 active:text-white/80",
         @class
       ]}
@@ -492,21 +492,19 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
             <td
               :for={{col, i} <- Enum.with_index(@col)}
               phx-click={@row_click && @row_click.(row)}
-              class={["relative p-0", @row_click && "hover:cursor-pointer"]}
+              class={["p-0", @row_click && "hover:cursor-pointer"]}
             >
               <div class="block py-4 pr-6">
-                <span class="absolute -inset-y-px right-0 -left-4 group-hover:bg-violet-950 sm:rounded-l-xl" />
                 <span class={["relative", i == 0 && "font-semibold text-violet-50"]}>
                   <%= render_slot(col, @row_item.(row)) %>
                 </span>
               </div>
             </td>
             <td :if={@action != []} class="relative w-14 p-0">
-              <div class="relative whitespace-nowrap py-4 text-right text-sm font-medium">
-                <span class="absolute -inset-y-px -right-4 left-0 group-hover:bg-violet-950 sm:rounded-r-xl" />
+              <div class="whitespace-nowrap text-right text-sm font-medium">
                 <span
                   :for={action <- @action}
-                  class="relative ml-4 font-semibold leading-6 text-violet-50 hover:text-violet-300"
+                  class="relative mx-4 font-semibold leading-6 text-violet-50 hover:text-violet-300"
                 >
                   <%= render_slot(action, @row_item.(row)) %>
                 </span>
@@ -609,13 +607,16 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
     """
   end
 
+  attr :side, :atom, values: [:front, :back], required: true
   slot :inner_block, required: true
 
   def card(assigns) do
     ~H"""
     <div class={[
-      "my-5 w-full h-60 bg-violet-900 border-2 border-violet-600 shadow-violet-600/60",
-      "shadow-lg rounded-xl grid place-items-center text-[5rem] text-violet-50"
+      "my-5 p-3 w-full h-60 border-2",
+      "shadow-lg rounded-xl grid place-items-center text-violet-50",
+      @side == :front && "text-[5rem] bg-indigo-900 border-amber-400",
+      @side == :back && "text-[3rem] bg-violet-900 border-orange-400"
     ]}>
       <%= render_slot(@inner_block) %>
     </div>
