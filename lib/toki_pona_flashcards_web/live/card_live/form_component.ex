@@ -25,7 +25,12 @@ defmodule TokiPonaFlashcardsWeb.CardLive.FormComponent do
         <.input field={@form[:front_sitelen]} type="checkbox" label="Front sitelen" />
         <.input field={@form[:back_sitelen]} type="checkbox" label="Back sitelen" />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Card</.button>
+          <.button
+            phx-disable-with="Saving..."
+            class="bg-violet-900 hover:bg-violet-800 shadow-xl hover:shadow-none"
+          >
+            Save Card
+          </.button>
         </:actions>
       </.simple_form>
     </div>

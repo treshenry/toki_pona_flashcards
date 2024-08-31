@@ -72,7 +72,7 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
                 <button
                   phx-click={JS.exec("data-cancel", to: "##{@id}")}
                   type="button"
-                  class="-m-3 flex-none p-3 opacity-20 hover:opacity-40"
+                  class="-m-3 flex-none p-3 opacity-20 hover:opacity-40 bg-black rounded-xl"
                   aria-label={gettext("close")}
                 >
                   <.icon name="hero-x-mark-solid" class="h-5 w-5 text-violet-50" />
@@ -462,6 +462,7 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
 
   slot :col, required: true do
     attr :label, :string
+    attr :nowrap, :boolean
   end
 
   slot :action, doc: "the slot for showing user actions in the last table column"
@@ -477,7 +478,12 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
       <table class="w-[40rem] mt-11 sm:w-full">
         <thead class="text-sm text-left leading-6 text-violet-200">
           <tr>
-            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
+            <th
+              :for={{col, i} <- Enum.with_index(@col)}
+              class={["p-0 pb-4 pr-6 text-xl", i == 0 && "pl-3"]}
+            >
+              <%= col[:label] %>
+            </th>
             <th :if={@action != []} class="relative p-0 pb-4">
               <span class="sr-only"><%= gettext("Actions") %></span>
             </th>
@@ -492,15 +498,20 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
             <td
               :for={{col, i} <- Enum.with_index(@col)}
               phx-click={@row_click && @row_click.(row)}
-              class={["p-0", @row_click && "hover:cursor-pointer"]}
+              class={[
+                "p-0",
+                @row_click && "hover:cursor-pointer",
+                Map.get(col, :nowrap, false) && "whitespace-nowrap",
+                i == 0 && "rounded-l-xl"
+              ]}
             >
               <div class="block py-4 pr-6">
-                <span class={["relative", i == 0 && "font-semibold text-violet-50"]}>
+                <span class={["relative", i == 0 && "font-semibold text-violet-50 pl-3"]}>
                   <%= render_slot(col, @row_item.(row)) %>
                 </span>
               </div>
             </td>
-            <td :if={@action != []} class="relative w-14 p-0">
+            <td :if={@action != []} class="relative w-14 p-0 rounded-r-xl">
               <div class="whitespace-nowrap text-right text-sm font-medium">
                 <span
                   :for={action <- @action}
