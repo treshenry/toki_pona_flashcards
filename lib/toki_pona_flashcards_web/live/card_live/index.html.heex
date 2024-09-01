@@ -20,13 +20,17 @@
   row_click={fn {_id, card} -> JS.navigate(~p"/cards/#{card}") end}
 >
   <:col :let={{_id, card}} label="Front" nowrap>
-    <span class={[card.front_sitelen && "font-sitelen text-2xl"]}><%= card.front %></span>
+    <span class={[card.front_sitelen && "font-sitelen text-4xl", !card.back_sitelen && "text-xl"]}>
+      <%= card.front %>
+    </span>
   </:col>
   <:col :let={{_id, card}} label="Back" nowrap>
-    <span class={[card.back_sitelen && "font-sitelen text-2xl"]}><%= card.back %></span>
+    <span class={[card.back_sitelen && "font-sitelen text-4xl", !card.back_sitelen && "text-xl"]}>
+      <%= card.back %>
+    </span>
   </:col>
   <:col :let={{_id, card}} label="Review in">
-    <%= Cards.get_review_sessions_label(card) %>
+    <span class="text-xl"><%= Cards.get_review_sessions_label(card) %></span>
   </:col>
 
   <:action :let={{_id, card}}>

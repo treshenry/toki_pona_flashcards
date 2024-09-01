@@ -492,7 +492,7 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
-          class="relative text-sm leading-6 text-violet-300"
+          class="relative text-sm leading-6 text-violet-200"
         >
           <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group hover:bg-violet-950">
             <td
@@ -506,7 +506,7 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
               ]}
             >
               <div class="block py-4 pr-6">
-                <span class={["relative", i == 0 && "font-semibold text-violet-50 pl-3"]}>
+                <span class={["relative", i == 0 && "text-violet-200 pl-3"]}>
                   <%= render_slot(col, @row_item.(row)) %>
                 </span>
               </div>
