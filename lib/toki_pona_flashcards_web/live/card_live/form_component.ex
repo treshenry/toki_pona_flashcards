@@ -20,10 +20,19 @@ defmodule TokiPonaFlashcardsWeb.CardLive.FormComponent do
         phx-submit="save"
       >
         <input type="hidden" name="card[user_id]" value={@user_id} />
+
         <.input field={@form[:front]} type="text" label="Front" />
+
         <.input field={@form[:back]} type="text" label="Back" />
-        <.input field={@form[:front_sitelen]} type="checkbox" label="Front sitelen" />
-        <.input field={@form[:back_sitelen]} type="checkbox" label="Back sitelen" />
+
+        <.sitelen_label is_sitelen={@form[:front_sitelen].value} value={@form[:front].value}>
+          <.input field={@form[:front_sitelen]} type="checkbox" label="Front sitelen" />
+        </.sitelen_label>
+
+        <.sitelen_label is_sitelen={@form[:back_sitelen].value} value={@form[:back].value}>
+          <.input field={@form[:back_sitelen]} type="checkbox" label="Back sitelen" />
+        </.sitelen_label>
+
         <:actions>
           <.button
             phx-disable-with="Saving..."
@@ -33,6 +42,21 @@ defmodule TokiPonaFlashcardsWeb.CardLive.FormComponent do
           </.button>
         </:actions>
       </.simple_form>
+    </div>
+    """
+  end
+
+  attr :is_sitelen, :boolean, required: true
+  attr :value, :string, required: true
+  slot :inner_block, required: true
+
+  defp sitelen_label(assigns) do
+    ~H"""
+    <div class="h-8 flex items-center">
+      <%= render_slot(@inner_block) %>
+      <%= if @is_sitelen == true do %>
+        <div class="text-violet-300 ml-3 font-sitelen text-xl"><%= @value %></div>
+      <% end %>
     </div>
     """
   end
