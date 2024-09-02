@@ -10,7 +10,7 @@ defmodule TokiPonaFlashcardsWeb.CardLive.Index do
     {:ok,
      socket
      |> assign(:user_id, socket.assigns.current_user.id)
-     |> stream(:cards, Cards.list_cards())}
+     |> stream(:cards, Cards.list_cards_for_user(socket.assigns.current_user))}
   end
 
   @impl true

@@ -23,6 +23,10 @@ defmodule TokiPonaFlashcards.Cards.Card do
     |> validate_required([:user_id, :front, :back, :front_sitelen, :back_sitelen, :box])
   end
 
+  def list_cards_for_user_query(user) do
+    from card in __MODULE__, where: card.user_id == ^user.id
+  end
+
   def get_cards_in_box_query(user, box) do
     from card in __MODULE__,
       where: card.user_id == ^user.id and card.box == ^box

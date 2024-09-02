@@ -23,6 +23,10 @@ defmodule TokiPonaFlashcards.Cards do
     Repo.all(Card)
   end
 
+  def list_cards_for_user(%User{} = user) do
+    Card.list_cards_for_user_query(user) |> Repo.all()
+  end
+
   @doc """
   Gets a single card.
 
