@@ -117,7 +117,7 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
       class={[
         "fixed top-2 right-2 mr-2 w-80 sm:w-96 z-50 rounded-lg p-3 ring-1",
         @kind == :info && "bg-violet-100 text-violet-800 ring-violet-500 fill-violet-900",
-        @kind == :error && "bg-rose-50 text-rose-900 shadow-md ring-rose-500 fill-rose-900"
+        @kind == :error && "bg-red-50 text-red-900 shadow-md ring-red-500 fill-red-900"
       ]}
       {@rest}
     >
@@ -147,12 +147,12 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
   def flash_group(assigns) do
     ~H"""
     <div id={@id}>
-      <.flash kind={:info} title={gettext("Success!")} flash={@flash} />
-      <.flash kind={:error} title={gettext("Error!")} flash={@flash} />
+      <.flash kind={:info} title={gettext("Success")} flash={@flash} />
+      <.flash kind={:error} title={gettext("Error")} flash={@flash} />
       <.flash
         id="client-error"
         kind={:error}
-        title={gettext("We can't find the internet")}
+        title={gettext("Connection unstable")}
         phx-disconnected={show(".phx-client-error #client-error")}
         phx-connected={hide("#client-error")}
         hidden
@@ -546,7 +546,7 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
     ~H"""
     <div class="mt-14">
       <dl class="-my-4">
-        <div :for={item <- @item} class="flex gap-4 py-4 text-sm leading-6 sm:gap-8">
+        <div :for={item <- @item} class="flex gap-4 py-4 text-lg leading-6 sm:gap-8">
           <dt class="w-1/4 flex-none text-white"><%= item.title %></dt>
           <dd class="text-violet-100"><%= render_slot(item) %></dd>
         </div>
