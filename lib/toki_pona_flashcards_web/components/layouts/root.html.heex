@@ -4,55 +4,52 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title suffix=" · Phoenix Framework">
-      <%= assigns[:page_title] || "TokiPonaFlashcards" %>
+    <.live_title suffix=" · Toki Pona Flashcards">
+      <%= assigns[:page_title] %>
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
   <body class="bg-black">
-    <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
-      <%= if @current_user do %>
-        <li class="text-[0.8125rem] leading-6 text-white">
-          <%= @current_user.email %>
-        </li>
-        <li>
+    <header class="flex place-content-between place-items-center my-3">
+      <div class="pl-6">
+        <.link href={~p"/cards"} class="font-sitelen text-violet-300 text-5xl">
+          kama-sona
+        </.link>
+      </div>
+      <div>
+        <%= if @current_user do %>
+          <span class="pr-6 text-violet-200"><%= @current_user.email %></span>
           <.link
             href={~p"/users/settings"}
-            class="text-[0.8125rem] leading-6 text-violet-200 font-semibold hover:text-violet-50"
+            class="pr-6 leading-6 text-violet-200 font-semibold hover:text-violet-50"
           >
             <.icon name="hero-cog" />
           </.link>
-        </li>
-        <li>
           <.link
             href={~p"/users/log_out"}
             method="delete"
-            class="text-[0.8125rem] leading-6 text-violet-200 font-semibold hover:text-violet-50"
+            class="pr-6 leading-6 text-violet-200 font-semibold hover:text-violet-50"
           >
             Log out
           </.link>
-        </li>
-      <% else %>
-        <li>
+        <% else %>
           <.link
             href={~p"/users/register"}
-            class="text-[0.8125rem] leading-6 text-violet-200 font-semibold hover:text-violet-50"
+            class="pr-6 leading-6 text-violet-200 font-semibold hover:text-violet-50"
           >
             Register
           </.link>
-        </li>
-        <li>
           <.link
             href={~p"/users/log_in"}
-            class="text-[0.8125rem] leading-6 text-violet-200 font-semibold hover:text-violet-50"
+            class="pr-6 leading-6 text-violet-200 font-semibold hover:text-violet-50"
           >
             Log in
           </.link>
-        </li>
-      <% end %>
-    </ul>
+        <% end %>
+      </div>
+    </header>
     <%= @inner_content %>
   </body>
 </html>

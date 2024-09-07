@@ -32,7 +32,7 @@ defmodule TokiPonaFlashcardsWeb.CardLive.Index do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Cards")
+    |> assign(:page_title, "Cards")
     |> assign(:card, nil)
   end
 

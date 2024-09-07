@@ -51,6 +51,7 @@ defmodule TokiPonaFlashcardsWeb.StudyLive.Index do
 
     {:ok,
      socket
+     |> assign(:page_title, "Study")
      |> assign(:current_session, current_session)
      |> assign(:cards, cards)
      |> assign(:current_card_index, 0)
