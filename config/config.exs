@@ -29,7 +29,9 @@ config :toki_pona_flashcards, TokiPonaFlashcardsWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :toki_pona_flashcards, TokiPonaFlashcards.Mailer, adapter: Swoosh.Adapters.Local
+config :toki_pona_flashcards, TokiPonaFlashcards.Mailer,
+  adapter: Swoosh.Adapters.Local,
+  api_key: System.get_env("SENDGRID_API_KEY")
 
 # Configure esbuild (the version is required)
 config :esbuild,
