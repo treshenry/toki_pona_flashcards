@@ -29,7 +29,9 @@ defmodule TokiPonaFlashcardsWeb.UserSettingsLive do
             required
           />
           <:actions>
-            <.button phx-disable-with="Changing...">Change Email</.button>
+            <.button phx-disable-with="Changing..." class="bg-violet-900 hover:bg-violet-800">
+              Change Email
+            </.button>
           </:actions>
         </.simple_form>
       </div>
@@ -65,7 +67,9 @@ defmodule TokiPonaFlashcardsWeb.UserSettingsLive do
             required
           />
           <:actions>
-            <.button phx-disable-with="Changing...">Change Password</.button>
+            <.button phx-disable-with="Changing..." class="bg-violet-900 hover:bg-violet-800">
+              Change Password
+            </.button>
           </:actions>
         </.simple_form>
       </div>
