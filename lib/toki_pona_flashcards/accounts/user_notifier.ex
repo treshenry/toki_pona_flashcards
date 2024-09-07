@@ -8,7 +8,7 @@ defmodule TokiPonaFlashcards.Accounts.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"TokiPonaFlashcards", "contact@example.com"})
+      |> from({"Toki Pona Flashcards", "toki-pona-flashcards@treshenry.net"})
       |> subject(subject)
       |> text_body(body)
 
