@@ -2,6 +2,6 @@ defmodule TokiPonaFlashcardsWeb.PageController do
   use TokiPonaFlashcardsWeb, :controller
 
   def home(conn, _params) do
-    redirect(conn, to: ~p"/cards")
+    render(conn, :home, layout: false)
   end
 end
