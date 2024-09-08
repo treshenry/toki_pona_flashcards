@@ -24,7 +24,7 @@ defmodule TokiPonaFlashcards.Cards.Card do
   end
 
   def list_cards_for_user_query(user) do
-    from card in __MODULE__, where: card.user_id == ^user.id
+    from card in __MODULE__, where: card.user_id == ^user.id, order_by: [desc: card.inserted_at]
   end
 
   def get_cards_in_box_query(user, box) do

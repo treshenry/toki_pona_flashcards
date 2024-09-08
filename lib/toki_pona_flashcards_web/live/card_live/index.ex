@@ -38,7 +38,7 @@ defmodule TokiPonaFlashcardsWeb.CardLive.Index do
 
   @impl true
   def handle_info({TokiPonaFlashcardsWeb.CardLive.FormComponent, {:saved, card}}, socket) do
-    {:noreply, stream_insert(socket, :cards, card)}
+    {:noreply, stream_insert(socket, :cards, card, at: 0)}
   end
 
   @impl true
