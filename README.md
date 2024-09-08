@@ -6,7 +6,7 @@ It supports sitelen pona writing on either the front or the back of the card wit
 
 This app is deployed to Fly at https://toki-pona-flashcards.fly.dev/.
 
-## Starting
+## Running in dev
 
 - Run `mix setup` to install and setup dependencies
 - Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
