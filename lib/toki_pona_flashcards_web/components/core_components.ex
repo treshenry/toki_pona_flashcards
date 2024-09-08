@@ -112,10 +112,11 @@ defmodule TokiPonaFlashcardsWeb.CoreComponents do
     <div
       :if={msg = render_slot(@inner_block) || Phoenix.Flash.get(@flash, @kind)}
       id={@id}
+      phx-hook={@kind == :info && "HideFlash"}
       phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
       class={[
-        "fixed top-2 right-2 mr-2 w-80 sm:w-96 z-50 rounded-lg p-3 ring-1",
+        "fixed top-2 left-1/2 -translate-x-1/2 w-80 sm:w-96 z-50 rounded-lg p-3 ring-1",
         @kind == :info && "bg-violet-100 text-violet-800 ring-violet-500 fill-violet-900",
         @kind == :error && "bg-red-50 text-red-900 shadow-md ring-red-500 fill-red-900"
       ]}
