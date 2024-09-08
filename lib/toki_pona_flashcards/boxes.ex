@@ -11,4 +11,8 @@ defmodule TokiPonaFlashcards.Boxes do
       study_session in box.review_in_session
     end)
   end
+
+  def get_retired_box_id() do
+    Box.get_boxes() |> Enum.reverse() |> hd() |> Map.get(:box_id)
+  end
 end
