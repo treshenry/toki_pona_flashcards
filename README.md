@@ -1,18 +1,14 @@
-# TokiPonaFlashcards
+# Toki Pona Flashcards
 
-To start your Phoenix server:
+This is an flashcard app specifically for learning [Toki Pona](https://tokipona.org/) with [spaced repition](https://en.wikipedia.org/wiki/Spaced_repetition).
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+It supports sitelen pona writing on either the front or the back of the card with the fantastic [sitelen seli kiwen](https://www.kreativekorp.com/software/fonts/sitelenselikiwen/) typeface.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+This app is deployed to Fly at https://toki-pona-flashcards.fly.dev/.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## Starting
 
-## Learn more
+- Run `mix setup` to install and setup dependencies
+- Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+Now visit [`localhost:4000`](http://localhost:4000)
