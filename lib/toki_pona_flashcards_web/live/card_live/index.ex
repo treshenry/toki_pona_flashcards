@@ -10,7 +10,9 @@ defmodule TokiPonaFlashcardsWeb.CardLive.Index do
     {:ok,
      socket
      |> assign(:user_id, socket.assigns.current_user.id)
-     |> stream(:cards, Cards.list_cards_for_user(socket.assigns.current_user))}
+     |> stream(:cards, Cards.list_cards_for_user(socket.assigns.current_user))
+     |> assign(:filter_options, All: "all", Active: "active")
+     |> assign(:current_filter, "active")}
   end
 
   @impl true
@@ -52,5 +54,22 @@ defmodule TokiPonaFlashcardsWeb.CardLive.Index do
   def handle_event("study_now", _, socket) do
     Accounts.increment_study_session(socket.assigns.current_user)
     {:noreply, push_navigate(socket, to: ~p"/study")}
+  end
+
+  def handle_event("filter", %{"filter" => filter}, socket) do
+    show_all =
+      case filter do
+        "all" -> true
+        _ -> false
+      end
+
+    dbg(show_all)
+
+    {:noreply,
+     socket
+     |> assign(:current_filter, filter)
+     |> stream(:cards, Cards.list_cards_for_user(socket.assigns.current_user, show_all),
+       reset: true
+     )}
   end
 end

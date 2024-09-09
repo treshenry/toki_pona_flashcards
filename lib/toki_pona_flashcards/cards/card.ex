@@ -29,7 +29,6 @@ defmodule TokiPonaFlashcards.Cards.Card do
 
   def list_cards_for_user_query(user, false) do
     retired_box_id = TokiPonaFlashcards.Boxes.get_retired_box_id()
-    dbg(retired_box_id)
 
     list_cards_for_user_query(user, true)
     |> where([card], card.box != ^retired_box_id)
