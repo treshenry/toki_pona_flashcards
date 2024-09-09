@@ -23,8 +23,9 @@ defmodule TokiPonaFlashcards.Cards do
     Repo.all(Card)
   end
 
-  def list_cards_for_user(%User{} = user) do
-    Card.list_cards_for_user_query(user) |> Repo.all()
+  def list_cards_for_user(%User{} = user, include_retired \\ false)
+      when is_boolean(include_retired) do
+    Card.list_cards_for_user_query(user, include_retired) |> Repo.all()
   end
 
   @doc """
