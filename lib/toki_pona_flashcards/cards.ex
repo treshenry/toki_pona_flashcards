@@ -45,12 +45,24 @@ defmodule TokiPonaFlashcards.Cards do
   def get_card!(id), do: Repo.get!(Card, id)
 
   def get_cards_for_session(%User{} = user, study_session) when is_integer(study_session) do
-    Boxes.get_boxes_for_study_session(study_session)
-    |> Enum.map(fn box ->
-      Card.get_cards_in_box_query(user, box.box_id) |> Repo.all()
-    end)
-    |> List.flatten()
-    |> Enum.shuffle()
+    all_cards =
+      Boxes.get_boxes_for_study_session(study_session)
+      |> Enum.map(fn box ->
+        Card.get_cards_in_box_query(user, box.box_id) |> Repo.all()
+      end)
+      |> List.flatten()
+
+    {in_boxes, in_all} =
+      Enum.reduce(all_cards, {[], []}, fn card, {in_boxes, in_all} ->
+        case card.box do
+          0 -> {in_boxes, [card | in_all]}
+          _ -> {[card | in_boxes], in_all}
+        end
+      end)
+
+    # Make sure all of the cards in boxes to review are first in the deck,
+    # then add the rest of the cards from the "All sessions" box.
+    [Enum.shuffle(in_boxes) | Enum.shuffle(in_all)] |> List.flatten()
   end
 
   def get_review_sessions_label(%Card{} = card) do
